@@ -1,0 +1,1295 @@
+/* ======================================================
+   自分だけ英単語帳 スマホWebアプリ用スタイル（モバイルファースト）
+====================================================== */
+
+/* ▼ 基本設定 */
+html, body {
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans JP", "Poppins", sans-serif;
+  color: #fff;
+  background: linear-gradient(180deg, #4b4b4b 0%, #2e2e2e 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ======================================================
+   ▼ メインレイアウト共通
+====================================================== */
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+/* ======================================================
+   ▼ ホーム画面（index.html）
+====================================================== */
+.mascot {
+  width: 100px;
+  margin-bottom: 16px;
+  animation: fadeInUp 0.8s ease both;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  animation: fadeInUp 1s ease both 0.1s;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: #ccc;
+  margin-bottom: 40px;
+  animation: fadeInUp 1s ease both 0.2s;
+}
+
+.button-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+  animation: fadeInUp 1s ease both 0.3s;
+}
+
+/* ======================================================
+   ▼ 共通ボタン
+====================================================== */
+.btn {
+  width: 100%;
+  max-width: 320px;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.25s ease, transform 0.1s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.btn:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+}
+.btn i {
+  margin-right: 6px;
+  font-size: 1rem;
+}
+
+/* ボタンカラー */
+.btn-pink   { background: linear-gradient(180deg, #ff90c9, #ff5fa3); }
+.btn-blue   { background: linear-gradient(180deg, #5fc5ff, #1e90ff); }
+.btn-orange { background: linear-gradient(180deg, #ffb347, #ff7b00); }
+.btn-yellow { background: linear-gradient(180deg, #ffd65b, #ffb300); color: #333; }
+.btn-green  { background: linear-gradient(180deg, #66e08b, #2bb55c); }
+
+/* ======================================================
+   ▼ 登録画面（register.html）
+====================================================== */
+main.register {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: calc(var(--vh, 1vh) * 100);
+  overflow-y: auto; /* ✅ ← hiddenをやめる */
+  padding: 16px;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+.page-title i {
+  color: #5fc5ff;
+  font-size: 1.1rem;
+}
+
+/* --- 入力ボックス --- */
+.box {
+  position: relative;
+  background: rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  backdrop-filter: blur(8px);
+  height: 70vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- ステップフォーム --- */
+.register-form {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.register-form.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.register-form label {
+  text-align: left;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.register-form input,
+.register-form textarea {
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 0.9rem;
+  resize: none;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+.register-form input:focus,
+.register-form textarea:focus {
+  outline: none;
+  border-color: #5fc5ff;
+  background: rgba(255,255,255,0.25);
+}
+.register-form input::placeholder,
+.register-form textarea::placeholder {
+  color: #bbb;
+}
+
+/* --- ボタンエリア --- */
+.button-area {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.next-btn{
+  margin-top: 10px;
+}
+
+/* --- フェード切替 --- */
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ======================================================
+   ▼ 共通アニメーション
+====================================================== */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ======================================================
+   ▼ タブレット・PC表示（拡張）
+====================================================== */
+@media (min-width: 768px) {
+  main {
+    padding: 40px 24px;
+  }
+  .mascot {
+    width: 120px;
+    margin-bottom: 24px;
+  }
+  .title {
+    font-size: 1.4rem;
+  }
+  .subtitle {
+    font-size: 1rem;
+  }
+  .btn {
+    font-size: 1rem;
+    padding: 16px;
+  }
+  .box {
+    height: 500px;
+  }
+  .page-title {
+    font-size: 1.3rem;
+  }
+}
+
+/* ======================================================
+   ▼ データベース画面（完全版）
+====================================================== */
+main.database {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: calc(var(--vh, 1vh) * 100);
+  padding: 24px 16px;
+  box-sizing: border-box;
+  text-align: center;
+  overflow-y: auto;
+}
+
+.filter-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.filter-area select {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 0.9rem;
+}
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-yellow { background: linear-gradient(180deg,#ffbf4d,#f59e0b); color:#fff; }
+.btn-red { background: linear-gradient(180deg,#ff5c5c,#d92b2b); color:#fff; }
+.btn-green { background: linear-gradient(180deg,#4ade80,#22c55e); color:#fff; }
+.btn-gray { background:#aaa; color:#fff; }
+.btn:hover { opacity:0.85; }
+
+/* ▼ リスト */
+.word-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.word-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.1);
+  padding: 12px 14px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.95rem;
+    text-align: left;
+}
+.word-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* --- カスタムチェック --- */
+.word-item input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #999;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.2s;
+  position: relative;
+}
+.word-item input[type="checkbox"]:checked {
+  border-color: #4ade80;
+  background: radial-gradient(circle, #4ade80 40%, #22c55e 90%);
+  box-shadow: 0 0 6px #4ade80;
+}
+.word-item input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 7px;
+  width: 5px;
+  height: 9px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.word-item .word { font-weight:600; color:#5fc5ff; }
+.word-item .meaning { 
+  font-size:0.85rem; 
+  color:#ccc;
+}
+
+
+.word-item-right button {
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  cursor: pointer;
+  background: #3b82f6;
+  color: #fff;
+}
+.word-item-right button:hover {
+  opacity: 0.85;
+}
+
+/* ▼ モーダル */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+.modal.hidden { display: none; }
+.modal-content {
+  background: #fff;
+  color: #333;
+  border-radius: 12px;
+  padding: 24px;
+  width: 90%;
+  max-width: 340px;
+  text-align: left;
+}
+.modal-content h3 {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+}
+.modal-content label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+.modal-content input,
+.modal-content select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 4px;
+  font-size: 0.9rem;
+}
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* ✅ ← ボタンの間に10pxの隙間を追加 */
+  margin-top: 14px;
+}
+
+
+.modal-content select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: #333; /* ✅ ← 文字色を固定（青くならない） */
+  background-color: #fff; /* ✅ 背景を白で統一 */
+  appearance: none; /* ✅ iOS/Androidのデフォルト装飾を無効化 */
+  -webkit-appearance: none; /* ✅ iPhone Safari専用 */
+}
+.modal-content select {
+  position: relative;
+  background: #fff url("data:image/svg+xml;utf8,<svg fill='gray' height='10' width='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'><path d='M0 2.5 L5 7.5 L10 2.5 Z'/></svg>") no-repeat right 10px center;
+  background-size: 12px;
+}
+
+
+
+/* ======================================================
+   ▼ 編集画面（edit.html）
+====================================================== */
+main.edit {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: calc(var(--vh, 1vh) * 100);
+  padding: 24px 16px;
+  box-sizing: border-box;
+  text-align: center;
+  overflow-y: auto;
+}
+
+.edit-form {
+  width: 100%;
+  max-width: 380px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edit-form label {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.edit-form input,
+.edit-form select {
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 0.9rem;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+.edit-form input:focus,
+.edit-form select:focus {
+  outline: none;
+  border-color: #5fc5ff;
+  background: rgba(255,255,255,0.25);
+}
+
+.button-area {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/* ======================================================
+   ▼ 単語帳画面（vocab.html）
+====================================================== */
+main.vocab {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: calc(var(--vh, 1vh) * 100);
+  padding: 24px 16px;
+  box-sizing: border-box;
+  text-align: center;
+  overflow-y: auto;
+}
+
+/* ▼ ジャンルヘッダー */
+.genre-block {
+  width: 100%;
+  margin-bottom: 32px;
+  animation: fadeInUp 0.6s ease both;
+}
+
+.genre-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin-bottom: 16px;
+}
+
+/* カラー定義 */
+.genre-header.pink   { background: linear-gradient(180deg, #ff90c9, #ff5fa3); }
+.genre-header.green  { background: linear-gradient(180deg, #6ee7b7, #34d399); }
+.genre-header.orange { background: linear-gradient(180deg, #fbbf24, #f59e0b); }
+.genre-header.blue   { background: linear-gradient(180deg, #5fc5ff, #1e90ff); }
+.genre-header.purple { background: linear-gradient(180deg, #c084fc, #a855f7); }
+.genre-header.gray   { background: linear-gradient(180deg, #9ca3af, #6b7280); }
+
+.genre-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.genre-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+/* ▼ 単語リスト */
+.word-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.word-item {
+  background: rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+}
+
+.word-text strong {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.word-text p {
+  font-size: 0.85rem;
+  color: #ccc;
+  margin: 4px 0 0;
+}
+
+/* ▼ 正答／誤答数 */
+.word-stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.word-stats .right {
+  color: #66e08b; /* ○ 正解 → 緑 */
+  font-weight: 700;
+}
+
+.word-stats .wrong {
+  color: #ff7070; /* × 不正解 → 赤 */
+  font-weight: 700;
+}
+
+/* ▼ 矢印ボタン */
+.word-stats .arrow i {
+  color: #fff;
+  font-size: 1rem;
+  margin-left: 4px;
+  transition: opacity 0.2s ease;
+}
+.word-stats .arrow:hover i {
+  opacity: 0.8;
+}
+
+
+/* ======================================================
+   ▼ 学習ジャンル選択画面（study-select.html）
+====================================================== */
+main.study-select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: calc(var(--vh, 1vh) * 100);
+  padding: 24px 16px;
+  text-align: center;
+  overflow-y: auto;
+}
+
+.genre-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 380px;
+}
+
+.genre-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-weight: 700;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.25s ease, transform 0.1s ease;
+}
+.genre-btn:active {
+  transform: scale(0.97);
+  opacity: 0.8;
+}
+
+/* カラー */
+.genre-btn.pink   { background: linear-gradient(180deg, #ff90c9, #ff5fa3); }
+.genre-btn.green  { background: linear-gradient(180deg, #6ee7b7, #34d399); }
+.genre-btn.orange { background: linear-gradient(180deg, #fbbf24, #f59e0b); }
+.genre-btn.blue   { background: linear-gradient(180deg, #5fc5ff, #1e90ff); }
+.genre-btn.purple { background: linear-gradient(180deg, #c084fc, #a855f7); }
+.genre-btn.gray   { background: linear-gradient(180deg, #9ca3af, #6b7280); }
+
+
+.quiz-card__box {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 24px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* =======================================================
+   📗 ヘッダー（問題）
+======================================================= */
+.quiz-header {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+  width: 100px;
+}
+
+.quiz-header.pink {
+  background: linear-gradient(180deg, #ff90c9, #ff5fa3);
+}
+.quiz-header.orange { 
+  background: linear-gradient(180deg, #ffb347, #ff6a00);
+}
+
+/* =======================================================
+   📙 本文構成
+======================================================= */
+.quiz-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.jp-sentence {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.jp-sentence mark {
+  background: #fff500;        /* 黄色っぽい背景 */
+  color: #000;                /* 黒文字 */
+  font-weight: bold;
+  padding: 0 3px;
+}
+
+.en-sentence {
+  font-size: 1.25rem;
+}
+
+/* =======================================================
+   💡 ヒント
+======================================================= */
+.hint {
+  border-radius: 10px;
+}
+
+.hint-label {
+  color: #ff5fa3;
+  font-weight: bold;
+}
+
+/* =======================================================
+   ✏️ 回答入力欄
+======================================================= */
+.answer-input {
+  width: 100%;
+  max-width: 280px;
+  padding: 12px 16px;
+  margin: 16px auto 0;
+  display: block;
+  border-radius: 14px;
+  font-size: 16px; /* ←ズーム防止 */
+  text-align: center;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  caret-color: #fff; /* 白いキャレット */
+
+  /* ✅ スマホデフォルトスタイルを全無効化 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  box-shadow: none;
+}
+
+
+
+/* =======================================================
+   🎯 study-question 専用ボタン
+======================================================= */
+.study .button-area {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.study .btn {
+  display: inline-block;
+  border-radius: 10px;
+  padding: 0.7rem 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* 🎨 ピンクボタン */
+.study .btn-pink {
+  background: linear-gradient(180deg, #ff90c9, #ff5fa3);
+  color: #fff;
+}
+.study .btn-pink:hover {
+  opacity: 0.9;
+}
+
+/* ⚪ グレーボタン */
+.study .btn-gray {
+  background: #e0e0e0;
+  color: #555;
+}
+.study .btn-gray:hover {
+  background: #ccc;
+}
+
+
+/* 判定テキスト ○× */
+.judge-text {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* 英単語（set the alarm） */
+.answer-word {
+  font-size: 1.6rem;
+  color: #ff5fa3;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.answer-en-label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.answer-en {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.answer-jp {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-top: 0.4rem;
+}
+
+/* 解説ブロック全体 */
+.note {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px;
+  width: 100%;
+  margin-top: 20px;
+  line-height: 1.7;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 「解説」タイトル */
+.note-title {
+  font-weight: 700;
+  font-size: 0.75rem;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.05em;
+  border: 2px solid #fff;
+  display: inline-block;
+  padding: 2px 20px;
+  border-radius: 50px;
+}
+
+/* 単語（キーワード） */
+.note-word {
+  font-size: 1.25rem;
+  color: #ff5fa3;
+  margin-bottom: 0.4rem;
+}
+
+/* 意味 */
+.note-meaning {
+  font-size: 0.875rem;
+  margin-bottom: 0.6rem;
+}
+
+.note-list {
+  margin-top: 0.5rem;
+  padding-left: 1.2rem;
+  list-style-type: disc;
+  color: #eee;
+  line-height: 1.7;
+}
+
+.note-list li {
+  margin-bottom: 0.4rem;
+  text-align: left;
+  font-size: 12px;
+}
+
+
+
+/* 次の問題ボタン */
+.next-btn {
+  display: block;
+  width: 100%;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.next-btn:hover {
+  opacity: 0.9;
+  transform: translateY(1px);
+}
+
+/* =======================================================
+   🏠 ホームへ戻るボタン
+======================================================= */
+.home-btn {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 8px);
+  left: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.2rem;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: all 0.25s ease;
+  backdrop-filter: blur(6px);
+
+  z-index: 9999;
+  pointer-events: auto; /* ✅ クリック有効 */
+  cursor: pointer;
+}
+
+.home-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+
+/* =======================================================
+   🦔 ジャンル選択（2列グリッド・縦スクロール）
+======================================================= */
+.genre-scroll {
+  width: 100%;
+  height: calc(100vh - 150px); /* 見出し分を引いて高さ調整 */
+  overflow-y: auto;             /* 縦スクロール可能 */
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.genre-grid {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  justify-items: center;
+  margin-bottom: 80px;
+}
+
+/* 各ジャンルカード */
+.genre-btn {
+  width: 100%;
+  max-width: 150px;
+  height: 150px;
+  border: none;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  padding: 10px;
+}
+
+.genre-btn img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+/* 色バリエーション */
+.genre-btn.pink {
+  background: linear-gradient(180deg, #ff90c9, #ff5fa3);
+}
+
+.genre-btn.green {
+  background: linear-gradient(180deg, #9be15d, #00e3ae);
+}
+
+.genre-btn.orange {
+  background: linear-gradient(180deg, #ffb347, #ff6a00);
+}
+
+.genre-btn.blue {
+  background: linear-gradient(180deg, #56ccf2, #2f80ed);
+}
+
+.genre-btn.purple {
+  background: linear-gradient(180deg, #c471ed, #a146eb);
+}
+
+.genre-btn.gray {
+  background: linear-gradient(180deg, #cccccc, #888888);
+}
+
+.genre-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.95;
+}
+
+/* =======================================================
+   🧩 一括操作ボタン（横並び配置）
+======================================================= */
+.button-group {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 0.8rem; /* ボタン間の隙間 */
+  margin-top: 20px;
+  flex-wrap: wrap; /* 画面が狭いときは折り返す */
+  margin-bottom: 40px;
+}
+
+.button-group .btn {
+  width: 150px;
+}
+
+.register-form select {
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 0.9rem;
+  transition: border 0.2s ease, background 0.2s ease;
+}
+.register-form select:focus {
+  outline: none;
+  border-color: #5fc5ff;
+  background: rgba(255,255,255,0.25);
+}
+
+
+/* ▼ 単語リストをスクロール可能に */
+.vocab-scroll {
+  flex: 1; /* 残り全ての高さを使用 */
+  overflow-y: auto; /* ✅ 縦スクロール有効化 */
+  padding-right: 8px;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+/* ▼ スクロール内の要素の見た目を安定化 */
+#vocabContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 60px; /* 下に余白 */
+}
+
+/* =======================================================
+   📗 database.html：単語リスト内のみスクロール可能に
+======================================================= */
+
+/* ページ全体の固定レイアウト */
+main.database {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh; /* 全画面 */
+  overflow: hidden; /* 全体ではスクロールしない */
+  padding: 24px 16px;
+  box-sizing: border-box;
+}
+
+/* コンテンツ（タイトルやボタン）は固定領域に収める */
+.database .container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 420px;
+  width: 100%;
+}
+
+/* 🔹 スクロール対象：単語リスト部分のみ */
+#wordList {
+  flex: 1; /* 残りの高さを使用 */
+  overflow-y: auto; /* ✅ 縦スクロール有効 */
+  padding-right: 6px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+/* ✅ スクロール時に上のボタンは固定される */
+.filter-area,
+.button-group {
+  flex-shrink: 0;
+}
+
+/* ▼ 空データ時メッセージ */
+.empty-msg {
+  text-align: center;
+  color: #ccc;
+  margin-top: 40px;
+  font-size: 0.9rem;
+}
+
+
+/* =======================================================
+   📘 vocab.html：単語一覧のみスクロール可能に
+======================================================= */
+
+/* ▼ コンテナ全体の高さを確保 */
+.vocab .container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  max-width: 420px;
+}
+
+.word-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+}
+
+.word-info .word {
+  font-weight: 600;
+  color: #5fc5ff;
+}
+
+.word-info .meaning {
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.word-info .genre {
+  font-size: 0.75rem;
+  color: #aaa;
+}
+
+.note-text ul {
+  margin: 0.5em 0;
+  padding-left: 1.4em;
+}
+
+.note-text li {
+  line-height: 1.6;
+  margin-bottom: 0.3em;
+  list-style-type: disc;
+  text-align: left;
+  font-size: 12px;
+}
+
+/* ==========================================================
+   🎧 英文横の音声アイコンボタン（枠なし・再生中アニメあり）
+   ========================================================== */
+.answer-en-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-audio-icon {
+  width: 40px;
+  height: 40px;
+  border: none;               /* ✅ 枠線なし */
+  background: transparent;    /* ✅ 背景透明 */
+  color: #fff;                /* アイコン白（暗背景用） */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* ホバー時：うっすら背景 */
+.btn-audio-icon:hover {
+  border-radius: 50%;
+  transform: scale(1.05);
+}
+
+.btn-audio-icon:active {
+  transform: scale(0.92);
+}
+
+/* ✅ 再生中アニメーション */
+.btn-audio-icon.playing {
+  background: rgba(16, 185, 129, 0.5); /* 緑色に光る */
+  color: #fff;
+  border-radius: 50%;
+  animation: pulseAudio 1.3s infinite;
+}
+
+@keyframes pulseAudio {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+  70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+/* ==========================================================
+   🟢🔴 正誤表示（丸・バツアイコン）
+   ========================================================== */
+.judge-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+}
+
+/* 🟢 正解時：緑丸 */
+.judge-text.correct {
+  color: #39ff67; /* 明るいグリーン */
+}
+
+/* 🔴 不正解時：赤バツ */
+.judge-text.incorrect {
+  color: #ef4444; /* 明るいレッド */
+}
+
+.page-subtitle{
+  margin-bottom: 20px;
+}
+
+/* ==========================================================
+   detail.html：単語の詳細ページ
+   ========================================================== */
+/* カード全体 */
+.detail-card {
+  padding: 24px 20px;
+  line-height: 1.8;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+/* 英単語 */
+.detail-card .word {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff5fa3;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* 意味 */
+.detail-card .meaning {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #999;
+}
+
+/* 日本語文・英文などのセクション */
+.detail-card h4 {
+  font-size: 1rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-left: 8px;
+  border-left: 3px solid #ff5fa3;
+}
+
+/* 本文 */
+.detail-card p {
+  margin: 0;
+  padding: 0 10px;
+}
+
+/* ヒントと解説 */
+.detail-card .extra-block {
+  margin-top: 20px;
+}
+
+.detail-card .extra-block p {
+  border-radius: 10px;
+  padding: 10px 14px;
+  line-height: 1.7;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+
+/* note 内の改行リスト風に */
+.detail-card .note {
+  line-height: 1.6;
+  margin-bottom: 0.3em;
+  list-style-type: disc;
+  text-align: left;
+}
+
+/* ローディング */
+.detail-card .loading {
+  text-align: center;
+  color: #aaa;
+}
+
+body {
+  padding-top: calc(env(safe-area-inset-top) + 16px); /* ✅ ノッチ分 + 固定余白 */
+  box-sizing: border-box;
+}

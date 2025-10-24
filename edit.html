@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <script src="js/include.js" defer></script>
+  <title>問題を作る | 自分だけ英単語帳</title>
+</head>
+
+<body>
+  <a href="index.html" class="home-btn" aria-label="ホームへ戻る">
+    <i class="fa-solid fa-house"></i>
+  </a>
+  <main class="register edit">
+    <div class="container">
+      <h2 class="page-title">
+        <i class="fa-solid fa-pen-to-square"></i> 問題を編集
+      </h2>
+
+      <div class="box">
+        <!-- ✅ STEP 1 -->
+        <form id="step1" class="register-form active">
+          <label>日本語文
+            <input type="text" name="jpSentence" id="jpSentence" required>
+          </label>
+
+          <label>ハイライト
+            <input type="text" name="highlight" id="highlight">
+          </label>
+
+          <label>英文
+            <input type="text" name="enSentence" id="enSentence" required>
+          </label>
+
+          <label>答え
+            <input type="text" name="answer" id="answer" required>
+          </label>
+
+          <label>ジャンル
+            <select name="genre" id="genre" required>
+              <option value="">選択してください</option>
+              <option value="ルーティン">01. ルーティン</option>
+              <option value="家事">02. 家事</option>
+              <option value="食べる・飲む">03. 食べる・飲む</option>
+              <option value="住まい">04. 住まい</option>
+              <option value="買い物">05. 買い物</option>
+              <option value="旅行・移動">06. 旅行・移動</option>
+              <option value="仕事">07. 仕事</option>
+              <option value="雑談・趣味">08. 雑談・趣味</option>
+              <option value="友達・恋愛">09. 友達・恋愛</option>
+              <option value="家族・子育て">10. 家族・子育て</option>
+              <option value="体・健康">11. 体・健康</option>
+              <option value="スマホ・PC・SNS">12. スマホ・PC・SNS</option>
+              <option value="日本紹介">13. 日本紹介</option>
+              <option value="授業・レッスン">14. 授業・レッスン</option>
+              <option value="感想・気持ち">15. 感想・気持ち</option>
+              <option value="人とのやりとり">16. 人とのやりとり</option>
+              <option value="ニュアンスを伝える一言">17. ニュアンスを伝える一言</option>
+              <option value="その他">18. その他</option>
+            </select>
+          </label>
+
+          <div class="button-area">
+            <button type="button" id="cancelBtn" class="btn btn-gray">
+              <i class="fa-solid fa-xmark"></i> キャンセル
+            </button>
+            <button type="button" class="btn btn-blue next-btn">
+              次へ <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </form>
+
+        <!-- ✅ STEP 2 -->
+        <form id="step2" class="register-form hidden">
+          <label>ヒント
+            <textarea name="hint" id="hint" rows="3"></textarea>
+          </label>
+
+          <label>英単語
+            <input type="text" name="word" id="word" required>
+          </label>
+
+          <label>日本語訳
+            <input type="text" name="meaning" id="meaning" required>
+          </label>
+
+          <label>解説
+            <textarea name="note" id="note" rows="3"></textarea>
+          </label>
+
+          <div class="button-area">
+            <button type="button" class="btn btn-yellow back-btn">
+              <i class="fa-solid fa-chevron-left"></i> 戻る
+            </button>
+            <button type="submit" class="btn btn-green">
+              <i class="fa-solid fa-save"></i> 保存する
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- 🔹 スクリプト -->
+  <script src="js/storage.js" defer></script>
+  <script src="js/edit.js" defer></script>
+</body>
+</html>

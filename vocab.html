@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <script src="js/include.js" defer></script>
+  <title>単語帳 | 自分だけ英単語帳</title>
+</head>
+
+<body>
+  <a href="index.html" class="home-btn" aria-label="ホームへ戻る">
+    <i class="fa-solid fa-house"></i>
+  </a>
+  <main class="vocab">
+    <div class="container">
+      <h2 class="page-title">
+        <i class="fa-solid fa-book"></i> 単語帳
+      </h2>
+
+      <div class="vocab-scroll">
+        <!-- ✅ JavaScriptでカテゴリー＆単語リストを自動生成 -->
+        <div id="vocabContainer"></div>
+  
+        <p id="emptyMsg" class="empty-msg hidden">
+          まだ単語が登録されていません。
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/storage.js" defer></script>
+  <script src="js/vocab.js" defer></script>
+</body>
+</html>

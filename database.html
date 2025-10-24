@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>データベース | 自分だけ英単語帳</title>
+
+  <!-- 共通スクリプト・スタイル -->
+  <script src="js/include.js" defer></script>
+
+  <script src="https://kit.fontawesome.com/3b9c655bdb.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <a href="index.html" class="home-btn" aria-label="ホームへ戻る">
+    <i class="fa-solid fa-house"></i>
+  </a>
+  <main class="database">
+    <div class="container">
+
+      <!-- ✅ ページタイトル -->
+      <h2 class="page-title">
+        <i class="fa-solid fa-database"></i> データベース
+      </h2>
+
+      <!-- 🔶 フィルター・操作エリア -->
+      <div class="filter-area">
+        <p>絞り込み：</p>
+        <select id="genreFilter">
+          <option value="all">すべて</option>
+          <option value="ルーティン">01.ルーティン</option>
+          <option value="家事">02.家事</option>
+          <option value="食べる・飲む">03.食べる・飲む</option>
+          <option value="住まい">04.住まい</option>
+          <option value="買い物">05.買い物</option>
+          <option value="旅行・移動">06.旅行・移動</option>
+          <option value="仕事">07.仕事</option>
+          <option value="雑談・趣味">08.雑談・趣味</option>
+          <option value="友達・恋愛">09.友達・恋愛</option>
+          <option value="家族・子育て">10.家族・子育て</option>
+          <option value="体・健康">11.体・健康</option>
+          <option value="スマホ・PC・SNS">12.スマホ・PC・SNS</option>
+          <option value="日本紹介">13.日本紹介</option>
+          <option value="授業・レッスン">14.授業・レッスン</option>
+          <option value="感想・気持ち">15.感想・気持ち</option>
+          <option value="人とのやりとり">16.人とのやりとり</option>
+          <option value="ニュアンスを伝える一言">17.ニュアンスを伝える一言</option>
+          <option value="その他">18.その他</option>
+        </select>
+      </div>
+
+      <div class="button-group">
+        <button id="editAllBtn" class="btn btn-yellow">
+          <i class="fa-solid fa-pen-to-square"></i> 一括編集
+        </button>
+
+        <button id="deleteAllBtn" class="btn btn-red">
+          <i class="fa-solid fa-trash"></i> 一括削除
+        </button>
+      </div>
+
+      <!-- 📘 登録単語リスト -->
+      <div id="wordList" class="word-list"></div>
+
+      <!-- 🧩 一括編集モーダル -->
+      <div id="bulkEditModal" class="modal hidden">
+        <div class="modal-content">
+          <h3><i class="fa-solid fa-pen"></i> 一括編集</h3>
+
+          <label>ジャンルを選択
+            <select id="bulkGenre">
+              <option value="">変更しない</option>
+              <option value="ルーティン">01. ルーティン</option>
+              <option value="家事">02. 家事</option>
+              <option value="食べる・飲む">03. 食べる・飲む</option>
+              <option value="住まい">04. 住まい</option>
+              <option value="買い物">05. 買い物</option>
+              <option value="旅行・移動">06. 旅行・移動</option>
+              <option value="仕事">07. 仕事</option>
+              <option value="雑談・趣味">08. 雑談・趣味</option>
+              <option value="友達・恋愛">09. 友達・恋愛</option>
+              <option value="家族・子育て">10. 家族・子育て</option>
+              <option value="体・健康">11. 体・健康</option>
+              <option value="スマホ・PC・SNS">12. スマホ・PC・SNS</option>
+              <option value="日本紹介">13. 日本紹介</option>
+              <option value="授業・レッスン">14. 授業・レッスン</option>
+              <option value="感想・気持ち">15. 感想・気持ち</option>
+              <option value="人とのやりとり">16. 人とのやりとり</option>
+              <option value="ニュアンスを伝える一言">17. ニュアンスを伝える一言</option>
+              <option value="その他">18. その他</option>
+            </select>
+          </label>
+
+
+          <label>タグを追加（カンマ区切りで複数可）
+            <input type="text" id="bulkTags" placeholder="例）朝,ルーティン,睡眠">
+          </label>
+
+          <div class="modal-buttons">
+            <button id="bulkSave" class="btn btn-green">
+              <i class="fa-solid fa-check"></i> 保存
+            </button>
+            <button id="bulkCancel" class="btn btn-gray">
+              <i class="fa-solid fa-xmark"></i> キャンセル
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⚠️ 空メッセージ -->
+      <p id="emptyMsg" class="empty-msg hidden">
+        まだ登録された単語はありません。
+      </p>
+    </div>
+  </main>
+
+  <!-- 🔹 共通データ処理 -->
+  <script src="js/storage.js" defer></script>
+  <script src="js/database.js" defer></script>
+</body>
+</html>

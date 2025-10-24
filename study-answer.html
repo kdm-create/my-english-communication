@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>答え | 自分だけ英単語帳</title>
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://kit.fontawesome.com/3b9c655bdb.js" crossorigin="anonymous"></script>
+  <script src="js/include.js" defer></script>
+</head>
+
+<body>
+  <main class="study">
+    <div class="container">
+      <section class="quiz-card active">
+        <div class="quiz-card__box">
+          <div class="quiz-header pink">答え</div>
+
+          <div class="quiz-body">
+            <p id="judgeText" class="judge-text"></p>
+            <h2 id="answerWord" class="answer-word"></h2>
+
+            <div class="answer-section">
+              <p class="answer-en-label">答えの英文：</p>
+
+              <div class="answer-en-line">
+                <p id="fullSentence" class="answer-en"></p>
+
+                <!-- 🔊 音声再生ボタン（アイコンのみ） -->
+                <button id="playAudio" class="btn-audio-icon" aria-label="英文を再生">
+                  <i class="fa-solid fa-volume-high"></i>
+                </button>
+              </div>
+
+              <p id="answerJp" class="answer-jp"></p>
+            </div>
+
+            <div id="noteArea" class="note">
+              <p class="note-title">解説</p>
+              <h3 id="noteWord" class="note-word"></h3>
+              <p id="noteMeaning" class="note-meaning"></p>
+              <p id="noteText" class="note-text"></p>
+            </div>
+
+            <button id="nextBtn" class="btn btn-pink next-btn">次の問題へ</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ✅ JS -->
+  <script src="js/storage.js"></script>
+  <script src="js/study-answer.js"></script>
+</body>
+</html>

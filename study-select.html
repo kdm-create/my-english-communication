@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学習する | 自分だけ英単語帳</title>
+
+  <!-- 共通スクリプト・CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://kit.fontawesome.com/3b9c655bdb.js" crossorigin="anonymous"></script>
+  <script src="js/include.js" defer></script>
+</head>
+
+<body>
+  <a href="index.html" class="home-btn" aria-label="ホームへ戻る">
+    <i class="fa-solid fa-house"></i>
+  </a>
+  <main class="study-select">
+    <div class="container">
+      <h2 class="page-title">学習する</h2>
+      <p class="page-subtitle">ジャンルを選択</p>
+
+      <div class="genre-scroll">
+        <div class="genre-grid">
+
+          <button class="genre-btn pink" data-genre="ルーティン">
+            <img src="assets/img/genre/hedgehog-routine.png" alt="ルーティン">
+            <span>01.ルーティン</span>
+          </button>
+
+          <button class="genre-btn green" data-genre="家事">
+            <img src="assets/img/genre/hedgehog-housework.png" alt="家事">
+            <span>02.家事</span>
+          </button>
+
+          <button class="genre-btn orange" data-genre="食べる・飲む">
+            <img src="assets/img/genre/hedgehog-eat.png" alt="食べる・飲む">
+            <span>03.食べる・飲む</span>
+          </button>
+
+          <button class="genre-btn purple" data-genre="住まい">
+            <img src="assets/img/genre/hedgehog-home.png" alt="住まい">
+            <span>04.住まい</span>
+          </button>
+
+          <button class="genre-btn blue" data-genre="買い物">
+            <img src="assets/img/genre/hedgehog-shopping.png" alt="買い物">
+            <span>05.買い物</span>
+          </button>
+
+          <button class="genre-btn pink" data-genre="旅行・移動">
+            <img src="assets/img/genre/hedgehog-travel.png" alt="旅行・移動">
+            <span>06.旅行・移動</span>
+          </button>
+
+          <button class="genre-btn green" data-genre="仕事">
+            <img src="assets/img/genre/hedgehog-work.png" alt="仕事">
+            <span>07.仕事</span>
+          </button>
+
+          <button class="genre-btn orange" data-genre="雑談・趣味">
+            <img src="assets/img/genre/hedgehog-talk.png" alt="雑談・趣味">
+            <span>08.雑談・趣味</span>
+          </button>
+
+          <button class="genre-btn purple" data-genre="友達・恋愛">
+            <img src="assets/img/genre/hedgehog-friends.png" alt="友達・恋愛">
+            <span>09.友達・恋愛</span>
+          </button>
+
+          <button class="genre-btn blue" data-genre="家族・子育て">
+            <img src="assets/img/genre/hedgehog-family.png" alt="家族・子育て">
+            <span>10.家族・子育て</span>
+          </button>
+
+          <button class="genre-btn pink" data-genre="体・健康">
+            <img src="assets/img/genre/hedgehog-health.png" alt="体・健康">
+            <span>11.体・健康</span>
+          </button>
+
+          <button class="genre-btn green" data-genre="スマホ・PC・SNS">
+            <img src="assets/img/genre/hedgehog-sns.png" alt="スマホ・PC・SNS">
+            <span>12.スマホ・PC・SNS</span>
+          </button>
+
+          <button class="genre-btn orange" data-genre="日本紹介">
+            <img src="assets/img/genre/hedgehog-japan.png" alt="日本紹介">
+            <span>13.日本紹介</span>
+          </button>
+
+          <button class="genre-btn purple" data-genre="授業・レッスン">
+            <img src="assets/img/genre/hedgehog-lesson.png" alt="授業・レッスン">
+            <span>14.授業・レッスン</span>
+          </button>
+
+          <button class="genre-btn blue" data-genre="感想・気持ち">
+            <img src="assets/img/genre/hedgehog-feeling.png" alt="感想・気持ち">
+            <span>15.感想・気持ち</span>
+          </button>
+
+          <button class="genre-btn pink" data-genre="人とのやりとり">
+            <img src="assets/img/genre/hedgehog-communication.png" alt="人とのやりとり">
+            <span>16.人とのやりとり</span>
+          </button>
+
+          <button class="genre-btn green" data-genre="ニュアンスを伝える一言">
+            <img src="assets/img/genre/hedgehog-nuance.png" alt="ニュアンスを伝える一言">
+            <span>17.ニュアンスを伝える一言</span>
+          </button>
+
+          <button class="genre-btn gray" data-genre="その他">
+            <img src="assets/img/genre/hedgehog-other.png" alt="その他">
+            <span>18.その他</span>
+          </button>
+
+        </div>
+      </div>
+
+
+    </div>
+  </main>
+
+  <!-- ✅ JS -->
+  <script src="js/storage.js" defer></script>
+  <script src="js/study-select.js" defer></script>
+</body>
+</html>

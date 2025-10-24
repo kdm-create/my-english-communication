@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>問題 | 自分だけ英単語帳</title>
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://kit.fontawesome.com/3b9c655bdb.js" crossorigin="anonymous"></script>
+  <script src="js/include.js" defer></script>
+</head>
+
+<body>
+  <a href="index.html" class="home-btn" aria-label="ホームへ戻る">
+    <i class="fa-solid fa-house"></i>
+  </a>
+  <main class="study">
+    <div class="container">
+      <section class="quiz-card active">
+        <div class="quiz-card__box">
+          <div class="quiz-header pink">問題</div>
+
+          <div class="quiz-body">
+            <p id="jpSentence" class="jp-sentence"></p>
+            <p id="enSentence" class="en-sentence"></p>
+
+            <div class="hint">
+              <span class="hint-label">ヒント</span><br />
+              <span id="hintText"></span>
+            </div>
+
+            <input
+              type="text"
+              id="userAnswer"
+              inputmode="latin"
+              lang="en"
+              class="answer-input"
+              autocapitalize="off"
+              placeholder="答えを入力"
+            />
+
+            <div class="button-area">
+              <button id="answerBtn" class="btn btn-pink">
+                <i class="fa-solid fa-check"></i> 答える
+              </button>
+              <button id="skipBtn" class="btn btn-gray">
+                <i class="fa-solid fa-forward"></i> わからない
+              </button>
+            </div>
+            
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ✅ JS -->
+  <script src="js/storage.js"></script>
+  <script src="js/study-question.js"></script>
+</body>
+</html>

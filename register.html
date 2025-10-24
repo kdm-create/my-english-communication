@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <script src="js/include.js" defer></script>
+  <title>問題を作る | 自分だけ英単語帳</title>
+</head>
+
+<body>
+    <a href="index.html" class="home-btn" aria-label="ホームへ戻る">
+    <i class="fa-solid fa-house"></i>
+  </a>
+  <main class="register">
+    <div class="container">
+      <h2 class="page-title">
+        <i class="fa-solid fa-pen"></i> 問題を作る
+      </h2>
+
+      <div class="box">
+        <!-- ✅ STEP 1 -->
+        <form id="step1" class="register-form active">
+          <label>日本語文
+            <input type="text" name="jpSentence" placeholder="例）6時に目覚ましをかけました" required>
+          </label>
+
+          <label>ハイライト
+            <input type="text" name="highlight" placeholder="例）目覚ましをかけました">
+          </label>
+
+          <label>英文
+            <input type="text" inputmode="latin" lang="en" autocapitalize="off" name="enSentence" placeholder="例）I set the alarm for six" required>
+          </label>
+
+          <label>答え
+            <input type="text" inputmode="latin" lang="en" autocapitalize="off" name="answer" placeholder="例）set the alarm" required>
+          </label>
+
+          <button type="button" class="btn btn-blue next-btn">
+            次へ <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </form>
+
+        <!-- ✅ STEP 2 -->
+        <form id="step2" class="register-form hidden">
+          <label>ヒント
+            <textarea name="hint" rows="3" placeholder="例）セットする、目覚まし時計(alarm clock)のclockはなくてもOK"></textarea>
+          </label>
+
+          <label>英単語
+            <input type="text" inputmode="latin" lang="en" autocapitalize="off" name="word" placeholder="例）set the alarm" required>
+          </label>
+
+          <label>日本語訳
+            <input type="text" name="meaning" placeholder="例）目覚ましをかける" required>
+          </label>
+
+          <label>解説
+            <textarea name="note" rows="3" placeholder="例）・発音は「OO」などメモを書けます"></textarea>
+          </label>
+
+          <div class="button-area">
+            <button type="button" class="btn btn-yellow back-btn">
+              <i class="fa-solid fa-chevron-left"></i> 戻る
+            </button>
+            <button type="submit" class="btn btn-green">
+              <i class="fa-solid fa-plus"></i> 登録する
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- 🔹 依存スクリプト -->
+  <script src="js/storage.js" defer></script>
+  <script src="js/register.js" defer></script>
+</body>
+</html>
