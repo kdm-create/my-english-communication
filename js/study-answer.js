@@ -68,25 +68,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     judgeText.classList.add("incorrect");
   }
 
-  // ==========================================================
-  // 🔹 Firebase のデータ更新（正解／不正解カウント）
-  // ==========================================================
-  try {
-    const key = currentData._key; // ← vocab.js / review.js で保存してある Firebaseキー
-    if (!key) {
-      console.warn("⚠️ Firebaseキーが見つからないため更新をスキップしました。");
-    } else {
-      const updates = {};
-      updates[`wordData/${key}/correct`] = (currentData.correct || 0) + (isCorrect ? 1 : 0);
-      updates[`wordData/${key}/wrong`] = (currentData.wrong || 0) + (isCorrect ? 0 : 1);
-      updates[`wordData/${key}/lastReviewed`] = Date.now();
+// ==========================================================
+// 🔹 Firebase のデータ更新（正解／不正解カウント）
+// ==========================================================
+try {
+  const key = currentData._key; // vocab.js / review.js で保存してある Firebaseキー
+  if (!key) {
+    console.warn("⚠️ Firebaseキーが見つからないため更新をスキップしました。");
+  } else {
+    // 既存のデータを取得
+    const wordRef = ref(db, `wordData/${key}`);
+    const snapshot = await get(wordRef);
+    const existingData = snapshot.exists() ? snapshot.val() : {};
 
-      await update(ref(db), updates);
-      console.log("✅ Firebaseに結果を更新:", updates);
-    }
-  } catch (err) {
-    console.error("❌ Firebase更新エラー:", err);
+    // 正解／不正解カウントを更新
+    const updates = {
+      correct: (existingData.correct || 0) + (isCorrect ? 1 : 0),
+      wrong: (existingData.wrong || 0) + (isCorrect ? 0 : 1),
+      lastReviewed: Date.now()
+    };
+
+    await update(wordRef, updates);
+    console.log("✅ Firebaseに結果を更新:", updates);
   }
+} catch (err) {
+  console.error("❌ Firebase更新エラー:", err);
+}
+
 
   // ==========================================================
   // 🔹 内容を画面に表示
