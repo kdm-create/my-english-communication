@@ -142,7 +142,7 @@ main.register {
   width: 100%;
   min-height: 550px; /* 💡最低高さ（お好みで） */
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 }
 
