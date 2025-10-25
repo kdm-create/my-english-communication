@@ -72,28 +72,29 @@ document.addEventListener("DOMContentLoaded", async () => {
 // 🔹 Firebase のデータ更新（正解／不正解カウント）
 // ==========================================================
 try {
-  const key = currentData._key; // vocab.js / review.js で保存してある Firebaseキー
+  const key = currentData._key; // ← vocab.js で保持している Firebaseキー
   if (!key) {
     console.warn("⚠️ Firebaseキーが見つからないため更新をスキップしました。");
   } else {
-    // 既存のデータを取得
-    const wordRef = ref(db, `wordData/${key}`);
-    const snapshot = await get(wordRef);
-    const existingData = snapshot.exists() ? snapshot.val() : {};
-
-    // 正解／不正解カウントを更新
     const updates = {
-      correct: (existingData.correct || 0) + (isCorrect ? 1 : 0),
-      wrong: (existingData.wrong || 0) + (isCorrect ? 0 : 1),
+      correct: (currentData.correct || 0) + (isCorrect ? 1 : 0),
+      wrong:   (currentData.wrong || 0) + (isCorrect ? 0 : 1),
       lastReviewed: Date.now()
     };
 
-    await update(wordRef, updates);
+    // ✅ 正しいパスにアップデート
+    await update(ref(db, "wordData/" + key), updates);
     console.log("✅ Firebaseに結果を更新:", updates);
+
+    // ✅ ローカルデータも更新（画面戻り時に反映）
+    currentData.correct = updates.correct;
+    currentData.wrong   = updates.wrong;
+    localStorage.setItem("currentQuizData", JSON.stringify(currentData));
   }
 } catch (err) {
   console.error("❌ Firebase更新エラー:", err);
 }
+
 
 
   // ==========================================================
