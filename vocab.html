@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <script src="js/include.js" defer></script>
+  <meta charset="UTF-8" />
   <title>単語帳 | 自分だけ英単語帳</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="js/include.js" defer></script>
 </head>
 
 <body>
   <a href="index.html" class="home-btn" aria-label="ホームへ戻る">
     <i class="fa-solid fa-house"></i>
   </a>
+
   <main class="vocab">
     <div class="container">
       <h2 class="page-title">
@@ -16,9 +19,9 @@
       </h2>
 
       <div class="vocab-scroll">
-        <!-- ✅ JavaScriptでカテゴリー＆単語リストを自動生成 -->
+        <!-- ✅ JSでジャンル＆単語リスト自動生成 -->
         <div id="vocabContainer"></div>
-  
+
         <p id="emptyMsg" class="empty-msg hidden">
           まだ単語が登録されていません。
         </p>
@@ -26,7 +29,7 @@
     </div>
   </main>
 
-  <script src="js/storage.js" defer></script>
-  <script src="js/vocab.js" defer></script>
+  <!-- Firebase使用時は type="module" が必須 -->
+  <script type="module" src="js/vocab.js"></script>
 </body>
 </html>

@@ -1,33 +1,61 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <script src="js/include.js" defer></script>
+  <meta charset="UTF-8">
   <title>自分だけ英単語帳</title>
+
+  <!-- ✅ CSSを直書き（最優先でロード） -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ✅ 共通head（PWA・meta設定など）を後から読み込み -->
+  <script src="js/include.js" defer></script>
+  
 </head>
 
 <body>
-    <main class="home">
-      <div class="container">
-        <img src="assets/img/top.png" alt="ハリネズミ" class="mascot" />
+  <main class="home">
+    <div class="container">
+      <img src="assets/img/top.png" alt="ハリネズミ" class="mascot" />
 
-        <h1 class="title">
-          会話のための英単語を<br>
-          もう一度ひとつひとつわかりやすく
-        </h1>
+      <h1 class="title">
+        会話のための英単語を<br>
+        もう一度ひとつひとつわかりやすく
+      </h1>
 
-        <p class="subtitle">例文で覚える、自分だけの学習アプリ</p>
+      <p class="subtitle">例文で覚える、自分だけの学習アプリ</p>
 
-        <div class="button-list">
-          <button class="btn btn-pink" onclick="startStudy()"><i class="fa-solid fa-play"></i> 学習する</button>
-          <button class="btn btn-blue" onclick="registerQuestion()"><i class="fa-solid fa-pen"></i> 問題を作る</button>
-          <button class="btn btn-orange" onclick="review()"><i class="fa-solid fa-rotate-right"></i> 復習する</button>
-          <button class="btn btn-yellow" onclick="openVocab()"><i class="fa-solid fa-book"></i> 単語帳</button>
-          <button class="btn btn-green" onclick="openDB()"><i class="fa-solid fa-database"></i> データベース</button>
-
-        </div>
+      <div class="button-list">
+        <button class="btn btn-pink" onclick="startStudy()"><i class="fa-solid fa-play"></i> 学習する</button>
+        <button class="btn btn-blue" onclick="registerQuestion()"><i class="fa-solid fa-pen"></i> 問題を作る</button>
+        <button class="btn btn-orange" onclick="review()"><i class="fa-solid fa-rotate-right"></i> 復習する</button>
+        <button class="btn btn-yellow" onclick="openVocab()"><i class="fa-solid fa-book"></i> 単語帳</button>
+        <button class="btn btn-green" onclick="openDB()"><i class="fa-solid fa-database"></i> データベース</button>
       </div>
-    </main>
+    </div>
+  </main>
 
-  <script src="js/main.js" defer></script>
+  <!-- ✅ Firebase SDK（モジュール版） -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDERcyG95jc-mClX9wFcBnQ-XieE9mwWEw",
+      authDomain: "my-english-communication.firebaseapp.com",
+      databaseURL: "https://my-english-communication-default-rtdb.firebaseio.com",
+      projectId: "my-english-communication",
+      storageBucket: "my-english-communication.appspot.com",
+      messagingSenderId: "122704269303",
+      appId: "1:122704269303:web:3b2367c00d4f9b4beaa8f2"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // ✅ グローバルに使えるようにする
+    window.db = db;
+  </script>
+
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>

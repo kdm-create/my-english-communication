@@ -1,14 +1,43 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>問題を編集 | 自分だけ英単語帳</title>
+
+  <!-- ✅ CSS（最優先でロード） -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ✅ 共通head（PWA設定など）を後から読み込み -->
   <script src="js/include.js" defer></script>
-  <title>問題を作る | 自分だけ英単語帳</title>
+
+  <!-- ✅ Firebase SDK 初期化 -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDERcyG95jc-mClX9wFcBnQ-XieE9mwWEw",
+      authDomain: "my-english-communication.firebaseapp.com",
+      databaseURL: "https://my-english-communication-default-rtdb.firebaseio.com",
+      projectId: "my-english-communication",
+      storageBucket: "my-english-communication.appspot.com",
+      messagingSenderId: "701043899162",
+      appId: "1:701043899162:web:cfda519e5aa12c7461b5ac"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    window.db = db; // ✅ グローバル登録
+  </script>
 </head>
 
 <body>
+  <!-- 🏠 ホームボタン -->
   <a href="index.html" class="home-btn" aria-label="ホームへ戻る">
     <i class="fa-solid fa-house"></i>
   </a>
+
   <main class="register edit">
     <div class="container">
       <h2 class="page-title">
@@ -16,26 +45,26 @@
       </h2>
 
       <div class="box">
-        <!-- ✅ STEP 1 -->
+        <!-- STEP1 -->
         <form id="step1" class="register-form active">
           <label>日本語文
-            <input type="text" name="jpSentence" id="jpSentence" required>
+            <input type="text" id="jpSentence" required />
           </label>
 
           <label>ハイライト
-            <input type="text" name="highlight" id="highlight">
+            <input type="text" id="highlight" />
           </label>
 
           <label>英文
-            <input type="text" name="enSentence" id="enSentence" required>
+            <input type="text" id="enSentence" required />
           </label>
 
           <label>答え
-            <input type="text" name="answer" id="answer" required>
+            <input type="text" id="answer" required />
           </label>
 
           <label>ジャンル
-            <select name="genre" id="genre" required>
+            <select id="genre" required>
               <option value="">選択してください</option>
               <option value="ルーティン">01. ルーティン</option>
               <option value="家事">02. 家事</option>
@@ -68,22 +97,22 @@
           </div>
         </form>
 
-        <!-- ✅ STEP 2 -->
+        <!-- STEP2 -->
         <form id="step2" class="register-form hidden">
           <label>ヒント
-            <textarea name="hint" id="hint" rows="3"></textarea>
+            <textarea id="hint" rows="3"></textarea>
           </label>
 
           <label>英単語
-            <input type="text" name="word" id="word" required>
+            <input type="text" id="word" required />
           </label>
 
           <label>日本語訳
-            <input type="text" name="meaning" id="meaning" required>
+            <input type="text" id="meaning" required />
           </label>
 
           <label>解説
-            <textarea name="note" id="note" rows="3"></textarea>
+            <textarea id="note" rows="3"></textarea>
           </label>
 
           <div class="button-area">
@@ -99,8 +128,7 @@
     </div>
   </main>
 
-  <!-- 🔹 スクリプト -->
-  <script src="js/storage.js" defer></script>
-  <script src="js/edit.js" defer></script>
+  <!-- ✅ Firebase連携スクリプト -->
+  <script type="module" src="js/edit.js"></script>
 </body>
 </html>

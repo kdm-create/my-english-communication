@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>学習する | 自分だけ英単語帳</title>
+  
+  <!-- ✅ CSSを直書き（最優先でロード） -->
+  <link rel="stylesheet" href="style.css">
 
-  <!-- 共通スクリプト・CSS -->
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script src="https://kit.fontawesome.com/3b9c655bdb.js" crossorigin="anonymous"></script>
+  <!-- ✅ 共通head（PWA・meta設定など）を後から読み込み -->
   <script src="js/include.js" defer></script>
 </head>
 
@@ -15,6 +16,7 @@
   <a href="index.html" class="home-btn" aria-label="ホームへ戻る">
     <i class="fa-solid fa-house"></i>
   </a>
+
   <main class="study-select">
     <div class="container">
       <h2 class="page-title">学習する</h2>
@@ -23,6 +25,7 @@
       <div class="genre-scroll">
         <div class="genre-grid">
 
+          <!-- 🔹 ジャンルボタン一覧 -->
           <button class="genre-btn pink" data-genre="ルーティン">
             <img src="assets/img/genre/hedgehog-routine.png" alt="ルーティン">
             <span>01.ルーティン</span>
@@ -115,13 +118,10 @@
 
         </div>
       </div>
-
-
     </div>
   </main>
 
-  <!-- ✅ JS -->
-  <script src="js/storage.js" defer></script>
-  <script src="js/study-select.js" defer></script>
+  <!-- ✅ JS（Firebase対応版） -->
+  <script type="module" src="js/study-select.js"></script>
 </body>
 </html>

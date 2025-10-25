@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <script src="js/include.js" defer></script>
+  <meta charset="UTF-8" />
   <title>問題を作る | 自分だけ英単語帳</title>
+
+  <!-- ✅ CSSを直書き（最優先でロード） -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ✅ 共通head（PWA・meta設定など）を後から読み込み -->
+  <script src="js/include.js" defer></script>
+
+  <!-- ✅ Firebase SDK（モジュール型） -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    // 🔹 あなたのFirebase設定
+    const firebaseConfig = {
+      apiKey: "AIzaSyDERcyG95jc-mClX9wFcBnQ-XieE9mwWEw",
+      authDomain: "my-english-communication.firebaseapp.com",
+      databaseURL: "https://my-english-communication-default-rtdb.firebaseio.com",
+      projectId: "my-english-communication",
+      storageBucket: "my-english-communication.appspot.com",
+      messagingSenderId: "122704269303",
+      appId: "1:122704269303:web:3b2367c00d4f9b4beaa8f2"
+    };
+
+    // ✅ Firebase 初期化
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // 他のスクリプトでも使えるように登録
+    window.db = db;
+  </script>
 </head>
 
 <body>
-    <a href="index.html" class="home-btn" aria-label="ホームへ戻る">
+  <a href="index.html" class="home-btn" aria-label="ホームへ戻る">
     <i class="fa-solid fa-house"></i>
   </a>
   <main class="register">
@@ -27,11 +57,13 @@
           </label>
 
           <label>英文
-            <input type="text" inputmode="latin" lang="en" autocapitalize="off" name="enSentence" placeholder="例）I set the alarm for six" required>
+            <input type="text" inputmode="latin" lang="en" autocapitalize="off"
+                   name="enSentence" placeholder="例）I set the alarm for six" required>
           </label>
 
           <label>答え
-            <input type="text" inputmode="latin" lang="en" autocapitalize="off" name="answer" placeholder="例）set the alarm" required>
+            <input type="text" inputmode="latin" lang="en" autocapitalize="off"
+                   name="answer" placeholder="例）set the alarm" required>
           </label>
 
           <button type="button" class="btn btn-blue next-btn">
@@ -42,11 +74,13 @@
         <!-- ✅ STEP 2 -->
         <form id="step2" class="register-form hidden">
           <label>ヒント
-            <textarea name="hint" rows="3" placeholder="例）セットする、目覚まし時計(alarm clock)のclockはなくてもOK"></textarea>
+            <textarea name="hint" rows="3"
+              placeholder="例）セットする、目覚まし時計(alarm clock)のclockはなくてもOK"></textarea>
           </label>
 
           <label>英単語
-            <input type="text" inputmode="latin" lang="en" autocapitalize="off" name="word" placeholder="例）set the alarm" required>
+            <input type="text" inputmode="latin" lang="en" autocapitalize="off"
+                   name="word" placeholder="例）set the alarm" required>
           </label>
 
           <label>日本語訳
@@ -54,7 +88,8 @@
           </label>
 
           <label>解説
-            <textarea name="note" rows="3" placeholder="例）・発音は「OO」などメモを書けます"></textarea>
+            <textarea name="note" rows="3"
+              placeholder="例）・発音は「OO」などメモを書けます"></textarea>
           </label>
 
           <div class="button-area">
@@ -72,6 +107,7 @@
 
   <!-- 🔹 依存スクリプト -->
   <script src="js/storage.js" defer></script>
-  <script src="js/register.js" defer></script>
+  <!-- ✅ register.js をモジュールとして読み込む -->
+  <script type="module" src="js/register.js"></script>
 </body>
 </html>

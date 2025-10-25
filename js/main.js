@@ -22,6 +22,13 @@ function openDB() {
   location.href = "database.html";
 }
 
+// ✅ これを追加（グローバル登録）
+window.startStudy = startStudy;
+window.registerQuestion = registerQuestion;
+window.review = review;
+window.openVocab = openVocab;
+window.openDB = openDB;
+
 // ======================================================
 // Service Worker 登録（PWA対応）
 // ======================================================

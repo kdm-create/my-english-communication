@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>答え | 自分だけ英単語帳</title>
 
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script src="https://kit.fontawesome.com/3b9c655bdb.js" crossorigin="anonymous"></script>
+  <!-- ✅ CSSを直書き（最優先でロード） -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ✅ 共通head（PWA・meta設定など）を後から読み込み -->
   <script src="js/include.js" defer></script>
 </head>
 
@@ -18,16 +20,20 @@
           <div class="quiz-header pink">答え</div>
 
           <div class="quiz-body">
+            <!-- 🔹 判定結果 -->
             <p id="judgeText" class="judge-text"></p>
+
+            <!-- 🔹 回答単語 -->
             <h2 id="answerWord" class="answer-word"></h2>
 
+            <!-- 🔹 英文・和訳・音声 -->
             <div class="answer-section">
               <p class="answer-en-label">答えの英文：</p>
 
               <div class="answer-en-line">
                 <p id="fullSentence" class="answer-en"></p>
 
-                <!-- 🔊 音声再生ボタン（アイコンのみ） -->
+                <!-- 🔊 音声再生ボタン -->
                 <button id="playAudio" class="btn-audio-icon" aria-label="英文を再生">
                   <i class="fa-solid fa-volume-high"></i>
                 </button>
@@ -36,6 +42,7 @@
               <p id="answerJp" class="answer-jp"></p>
             </div>
 
+            <!-- 🔹 解説エリア -->
             <div id="noteArea" class="note">
               <p class="note-title">解説</p>
               <h3 id="noteWord" class="note-word"></h3>
@@ -43,15 +50,17 @@
               <p id="noteText" class="note-text"></p>
             </div>
 
-            <button id="nextBtn" class="btn btn-pink next-btn">次の問題へ</button>
+            <!-- 🔹 次の問題へ -->
+            <button id="nextBtn" class="btn btn-pink next-btn">
+              <i class="fa-solid fa-arrow-right"></i> 次の問題へ
+            </button>
           </div>
         </div>
       </section>
     </div>
   </main>
 
-  <!-- ✅ JS -->
-  <script src="js/storage.js"></script>
-  <script src="js/study-answer.js"></script>
+  <!-- ✅ JS（Realtime Database対応版） -->
+  <script type="module" src="js/study-answer.js"></script>
 </body>
 </html>

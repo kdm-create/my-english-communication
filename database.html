@@ -5,19 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>データベース | 自分だけ英単語帳</title>
 
-  <!-- 共通スクリプト・スタイル -->
+    <!-- ✅ CSSを直書き（最優先でロード） -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ✅ 共通head（PWA・meta設定など）を後から読み込み -->
   <script src="js/include.js" defer></script>
 
+  <!-- Font Awesome（アイコン） -->
   <script src="https://kit.fontawesome.com/3b9c655bdb.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+  <!-- 🔙 ホームへ戻る -->
   <a href="index.html" class="home-btn" aria-label="ホームへ戻る">
     <i class="fa-solid fa-house"></i>
   </a>
+
   <main class="database">
     <div class="container">
-
       <!-- ✅ ページタイトル -->
       <h2 class="page-title">
         <i class="fa-solid fa-database"></i> データベース
@@ -49,6 +54,7 @@
         </select>
       </div>
 
+      <!-- 🔹 ボタン群 -->
       <div class="button-group">
         <button id="editAllBtn" class="btn btn-yellow">
           <i class="fa-solid fa-pen-to-square"></i> 一括編集
@@ -91,7 +97,6 @@
             </select>
           </label>
 
-
           <label>タグを追加（カンマ区切りで複数可）
             <input type="text" id="bulkTags" placeholder="例）朝,ルーティン,睡眠">
           </label>
@@ -114,8 +119,7 @@
     </div>
   </main>
 
-  <!-- 🔹 共通データ処理 -->
-  <script src="js/storage.js" defer></script>
-  <script src="js/database.js" defer></script>
+  <!-- ✅ Firebase版 database.js をモジュールとして読み込み -->
+  <script type="module" src="js/database.js"></script>
 </body>
 </html>

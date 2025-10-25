@@ -5,15 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>問題 | 自分だけ英単語帳</title>
 
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script src="https://kit.fontawesome.com/3b9c655bdb.js" crossorigin="anonymous"></script>
+  <!-- ✅ CSSを直書き（最優先でロード） -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ✅ 共通head（PWA・meta設定など）を後から読み込み -->
   <script src="js/include.js" defer></script>
 </head>
 
 <body>
+  <!-- 🔹 ホームへ戻る -->
   <a href="index.html" class="home-btn" aria-label="ホームへ戻る">
     <i class="fa-solid fa-house"></i>
   </a>
+
+  <!-- 🔹 メイン -->
   <main class="study">
     <div class="container">
       <section class="quiz-card active">
@@ -21,14 +26,19 @@
           <div class="quiz-header pink">問題</div>
 
           <div class="quiz-body">
+            <!-- 日本語文 -->
             <p id="jpSentence" class="jp-sentence"></p>
+
+            <!-- 英文（空欄付き） -->
             <p id="enSentence" class="en-sentence"></p>
 
+            <!-- ヒント -->
             <div class="hint">
               <span class="hint-label">ヒント</span><br />
               <span id="hintText"></span>
             </div>
 
+            <!-- 回答欄 -->
             <input
               type="text"
               id="userAnswer"
@@ -39,6 +49,7 @@
               placeholder="答えを入力"
             />
 
+            <!-- ボタン -->
             <div class="button-area">
               <button id="answerBtn" class="btn btn-pink">
                 <i class="fa-solid fa-check"></i> 答える
@@ -47,15 +58,13 @@
                 <i class="fa-solid fa-forward"></i> わからない
               </button>
             </div>
-            
           </div>
         </div>
       </section>
     </div>
   </main>
 
-  <!-- ✅ JS -->
-  <script src="js/storage.js"></script>
-  <script src="js/study-question.js"></script>
+  <!-- ✅ JS（Realtime Database 対応） -->
+  <script type="module" src="js/study-question.js"></script>
 </body>
 </html>

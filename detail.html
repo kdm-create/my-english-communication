@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <script src="js/include.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>詳細 | 自分だけ英単語帳</title>
+
+  <!-- ✅ CSSを直書き（最優先でロード） -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ✅ 共通head（PWA・meta設定など）を後から読み込み -->
+  <script src="js/include.js" defer></script>
 </head>
 
 <body>
@@ -20,8 +27,7 @@
     </div>
   </main>
 
-  <!-- 🔹 スクリプト -->
-  <script src="js/storage.js"></script>
-  <script src="js/detail.js"></script>
+  <!-- ✅ JS（Firebase対応） -->
+  <script type="module" src="js/detail.js"></script>
 </body>
 </html>
