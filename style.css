@@ -134,13 +134,13 @@ main.register {
 /* --- 入力ボックス --- */
 .box {
   position: relative;
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(8px);
-  height: 80vh;
   width: 100%;
+  min-height: 550px; /* 💡最低高さ（お好みで） */
   display: flex;
   justify-content: center;
   align-items: center;
