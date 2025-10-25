@@ -4,18 +4,17 @@
   <meta charset="UTF-8">
   <title>自分だけ英単語帳</title>
 
-  <!-- ✅ CSSを直書き（最優先でロード） -->
-  <link rel="stylesheet" href="style.css">
+  <!-- ✅ CSS（GitHub Pages用にリポジトリ名を含める or 相対パス指定） -->
+  <link rel="stylesheet" href="./style.css">
 
   <!-- ✅ 共通head（PWA・meta設定など）を後から読み込み -->
-  <script src="js/include.js" defer></script>
-  
+  <script src="./js/include.js" defer></script>
 </head>
 
 <body>
   <main class="home">
     <div class="container">
-      <img src="assets/img/top.png" alt="ハリネズミ" class="mascot" />
+      <img src="./assets/img/top.png" alt="ハリネズミ" class="mascot" />
 
       <h1 class="title">
         会話のための英単語を<br>
@@ -56,6 +55,7 @@
     window.db = db;
   </script>
 
-  <script type="module" src="js/main.js"></script>
+  <!-- ✅ main.js（相対パスで呼び出し） -->
+  <script type="module" src="./js/main.js"></script>
 </body>
 </html>
