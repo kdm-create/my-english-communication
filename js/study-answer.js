@@ -1,7 +1,7 @@
 /* ==========================================================
    🎯 study-answer.js（Realtime Database 連携版）
-   - 答え画面（解説を改行ごとにリスト表示）
-   - 正解数・不正解数を Realtime Database に保存
+   - URLパラメータから id & 回答(a) を取得
+   - Firebase から問題データを取得して正誤判定・更新
 ========================================================== */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
@@ -30,6 +30,40 @@ document.addEventListener("DOMContentLoaded", async () => {
   const db = getDatabase(app);
 
   // ==========================================================
+  // 🔹 URLパラメータから id と 回答 を取得
+  // ==========================================================
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const userAnswer = decodeURIComponent(params.get("a") || "");
+
+  console.log("🧩 URLパラメータ:", { id, userAnswer });
+
+  if (!id) {
+    alert("問題IDが見つかりません。最初からやり直してください。");
+    location.href = "study-select.html";
+    return;
+  }
+
+  // ==========================================================
+  // 🔹 Firebaseから該当問題データを取得
+  // ==========================================================
+  let currentData = null;
+  try {
+    const snapshot = await get(ref(db, `wordData/${id}`));
+    if (!snapshot.exists()) {
+      alert("データの取得中にエラーが発生しました。");
+      location.href = "study-select.html";
+      return;
+    }
+    currentData = snapshot.val();
+    console.log("📘 問題データ:", currentData);
+  } catch (err) {
+    console.error("❌ Firebase取得エラー:", err);
+    alert("データの取得中にエラーが発生しました。");
+    return;
+  }
+
+  // ==========================================================
   // 🔹 要素取得
   // ==========================================================
   const judgeText = document.getElementById("judgeText");
@@ -43,22 +77,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   const playAudioBtn = document.getElementById("playAudio");
 
   // ==========================================================
-  // 🔹 localStorageからデータ取得
-  // ==========================================================
-  const currentData = JSON.parse(localStorage.getItem("currentQuizData"));
-  const userAnswer = localStorage.getItem("userAnswer") || "";
-
-  if (!currentData) {
-    alert("問題データが見つかりません。最初からやり直してください。");
-    location.href = "study-select.html";
-    return;
-  }
-
-  // ==========================================================
   // 🔹 正誤判定
   // ==========================================================
-  const isCorrect =
-    userAnswer.toLowerCase().trim() === (currentData.answer || "").toLowerCase().trim();
+  const correctAns = (currentData.answer || "").trim().toLowerCase();
+  const userInput = (userAnswer || "").trim().toLowerCase();
+  const isCorrect = correctAns === userInput;
+
+  console.log("🧩 比較結果:", { userInput, correctAns, isCorrect });
 
   if (isCorrect) {
     judgeText.innerHTML = `<i class="fa-regular fa-circle"></i> 正解！`;
@@ -68,37 +93,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     judgeText.classList.add("incorrect");
   }
 
-// ==========================================================
-// 🔹 Firebase のデータ更新（正解／不正解カウント）
-// ==========================================================
-try {
-  const key = currentData._key; // ← vocab.js で保持している Firebaseキー
-  if (!key) {
-    console.warn("⚠️ Firebaseキーが見つからないため更新をスキップしました。");
-  } else {
+  // ==========================================================
+  // 🔹 Firebase の正誤カウントを更新
+  // ==========================================================
+  try {
     const updates = {
       correct: (currentData.correct || 0) + (isCorrect ? 1 : 0),
-      wrong:   (currentData.wrong || 0) + (isCorrect ? 0 : 1),
+      wrong: (currentData.wrong || 0) + (isCorrect ? 0 : 1),
       lastReviewed: Date.now()
     };
-
-    // ✅ 正しいパスにアップデート
-    await update(ref(db, "wordData/" + key), updates);
-    console.log("✅ Firebaseに結果を更新:", updates);
-
-    // ✅ ローカルデータも更新（画面戻り時に反映）
-    currentData.correct = updates.correct;
-    currentData.wrong   = updates.wrong;
-    localStorage.setItem("currentQuizData", JSON.stringify(currentData));
+    await update(ref(db, `wordData/${id}`), updates);
+    console.log("✅ Firebase更新:", updates);
+  } catch (err) {
+    console.error("❌ Firebase更新エラー:", err);
   }
-} catch (err) {
-  console.error("❌ Firebase更新エラー:", err);
-}
-
-
 
   // ==========================================================
-  // 🔹 内容を画面に表示
+  // 🔹 表示処理
   // ==========================================================
   answerWord.textContent = currentData.answer || "";
   fullSentence.textContent = currentData.enSentence || "";
@@ -106,7 +117,6 @@ try {
   noteWord.textContent = currentData.word || "";
   noteMeaning.textContent = currentData.meaning || "";
 
-  // ✅ 改行ごとにリスト化
   noteText.innerHTML = "";
   if (currentData.note && currentData.note.trim() !== "") {
     const ul = document.createElement("ul");
@@ -128,39 +138,18 @@ try {
   // ==========================================================
   playAudioBtn.addEventListener("click", () => {
     if (!currentData.enSentence) return;
-    try {
-      const utter = new SpeechSynthesisUtterance(currentData.enSentence);
-      utter.lang = "en-US";
-      utter.rate = 0.9;
-      utter.pitch = 1.0;
-
-      playAudioBtn.classList.add("playing");
-      utter.onend = () => playAudioBtn.classList.remove("playing");
-
-      speechSynthesis.cancel();
-      speechSynthesis.speak(utter);
-    } catch (err) {
-      console.error("❌ 音声再生エラー:", err);
-      alert("音声を再生できませんでした。");
-    }
+    const utter = new SpeechSynthesisUtterance(currentData.enSentence);
+    utter.lang = "en-US";
+    utter.rate = 0.9;
+    utter.pitch = 1.0;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utter);
   });
 
   // ==========================================================
   // 🔹 次の問題へ
   // ==========================================================
   nextBtn.addEventListener("click", () => {
-    const currentIndex = parseInt(localStorage.getItem("currentIndex") || "0", 10);
-    const nextIndex = currentIndex + 1;
-    localStorage.setItem("currentIndex", nextIndex.toString());
-
-    const currentGenreData = JSON.parse(localStorage.getItem("currentGenreData") || "[]");
-    if (nextIndex >= currentGenreData.length) {
-      alert("このジャンルの問題はすべて終了しました。最初に戻ります。");
-      localStorage.setItem("currentIndex", "0");
-      location.href = "study-select.html";
-      return;
-    }
-
-    location.href = "study-question.html";
+    location.href = "study-select.html";
   });
 });

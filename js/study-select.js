@@ -1,16 +1,16 @@
 /* ==========================================================
    🎓 study-select.js（Realtime Database 連携版）
    - ジャンル選択画面
-   - Firebaseからデータを取得して判定
+   - Firebaseからデータ存在確認のみ実施
 ========================================================== */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  console.log("✅ study-select.js loaded (Realtime Database)");
+  console.log("✅ study-select.js loaded (Firebase専用)");
 
   // ==========================================================
-  // 🔹 Firebase 初期化（このファイル単体で完結）
+  // 🔹 Firebase 初期化
   // ==========================================================
   const firebaseConfig = {
     apiKey: "AIzaSyDERcyG95jc-mClX9wFcBnQ-XieE9mwWEw",
@@ -25,31 +25,31 @@ document.addEventListener("DOMContentLoaded", async () => {
   const db = getDatabase(app);
 
   // ==========================================================
-  // 🔹 ジャンルボタンを取得
+  // 🔹 要素取得
   // ==========================================================
   const buttons = document.querySelectorAll(".genre-btn");
 
-  // 🔹 ジャンル名を正規化（数字・ドット・全角半角スペースを削除）
+  // 🔹 ジャンル名正規化関数（全角・半角対応）
   function normalizeGenre(str) {
     return (str || "")
       .replace(/^[０-９0-9]+\.\s*/, "") // 「01. 」や「０１. 」を削除
-      .replace(/\s+/g, "")             // スペース削除（全角・半角）
+      .replace(/\s+/g, "")             // スペース削除
       .trim();
   }
 
   // ==========================================================
-  // 🔹 ボタンクリック処理
+  // 🔹 クリックイベント登録
   // ==========================================================
   buttons.forEach((btn) => {
     btn.addEventListener("click", async () => {
       const genre = btn.dataset.genre;
       console.log("🎯 選択ジャンル:", genre);
 
-      // 🔹 ジャンルを保存（他ページで使用）
-      localStorage.setItem("selectedGenre", genre);
+      // 一時保存（ページ間受け渡し用）
+      sessionStorage.setItem("selectedGenre", genre);
 
       try {
-        // 🔹 Firebaseから全データ取得
+        // 🔹 Firebaseから全単語データ取得
         const dbRef = ref(db);
         const snapshot = await get(child(dbRef, "wordData"));
 
@@ -59,30 +59,22 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         const allData = Object.values(snapshot.val());
-        console.log("📦 取得データ:", allData);
-
-        // 🔹 正規化してジャンル一致を判定
-        const filtered = allData.filter(item => {
-          const saved = normalizeGenre(item.genre);
-          const selected = normalizeGenre(genre);
-          return saved === selected;
+        const matched = allData.filter((item) => {
+          return normalizeGenre(item.genre) === normalizeGenre(genre);
         });
 
-        console.log("📚 該当データ数:", filtered.length);
-
-        if (filtered.length === 0) {
+        if (matched.length === 0) {
           alert(`「${genre}」ジャンルにはまだ問題が登録されていません。`);
           return;
         }
 
-        // 🔹 学習開始準備
-        localStorage.setItem("currentIndex", "0");
-        localStorage.setItem("currentGenreData", JSON.stringify(filtered));
+        console.log(`✅ 「${genre}」ジャンルに ${matched.length} 件の問題があります。`);
 
-        // 🔹 次のページへ
+        // 🔹 次ページへ遷移
         location.href = "study-question.html";
+
       } catch (error) {
-        console.error("❌ データ取得エラー:", error);
+        console.error("❌ Firebase取得エラー:", error);
         alert("データの取得中にエラーが発生しました。");
       }
     });

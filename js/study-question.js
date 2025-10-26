@@ -1,13 +1,13 @@
 /* ==========================================================
    🎯 study-question.js（Realtime Database 連携版）
    - 出題ページ（穴埋め問題）
-   - Firebaseから選択ジャンルの問題を取得
+   - Firebaseからジャンル別問題を取得
 ========================================================== */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  console.log("✅ study-question.js loaded (Realtime Database)");
+  console.log("✅ study-question.js loaded (Firebase専用)");
 
   // ==========================================================
   // 🔹 Firebase 初期化
@@ -35,9 +35,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const skipBtn = document.getElementById("skipBtn");
 
   // ==========================================================
-  // 🔹 ジャンル取得
+  // 🔹 選択ジャンル取得
   // ==========================================================
-  const selectedGenre = localStorage.getItem("selectedGenre");
+  const selectedGenre = sessionStorage.getItem("selectedGenre");
   if (!selectedGenre) {
     alert("ジャンルが選択されていません。");
     location.href = "study-select.html";
@@ -45,41 +45,40 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // ==========================================================
-  // 🔹 Firebaseからデータ取得
+  // 🔹 Firebaseから問題データ取得
   // ==========================================================
   try {
-    const dbRef = ref(db);
-    const snapshot = await get(child(dbRef, "wordData"));
-
+    const snapshot = await get(child(ref(db), "wordData"));
     if (!snapshot.exists()) {
-      alert("データベースに単語が登録されていません。");
+      alert("データが登録されていません。");
       location.href = "study-select.html";
       return;
     }
 
-    const allData = Object.values(snapshot.val());
-    const data = allData.filter(item => item.genre === selectedGenre);
+    const allData = Object.entries(snapshot.val()).map(([key, value]) => ({
+      ...value,
+      _key: key,
+    }));
+    const genreData = allData.filter(item => item.genre === selectedGenre);
 
-    if (data.length === 0) {
-      alert(`「${selectedGenre}」ジャンルに登録された問題がありません。`);
+    if (genreData.length === 0) {
+      alert(`「${selectedGenre}」ジャンルの問題はありません。`);
       location.href = "study-select.html";
       return;
     }
 
     // ==========================================================
-    // 🔹 インデックス管理
+    // 🔹 出題インデックス管理
     // ==========================================================
-    let currentIndex = parseInt(localStorage.getItem("currentIndex") || "0", 10);
-    if (currentIndex >= data.length) currentIndex = 0;
-    const current = data[currentIndex];
-    localStorage.setItem("currentQuizData", JSON.stringify(current));
-
+    let index = parseInt(sessionStorage.getItem("quizIndex") || "0", 10);
+    if (index >= genreData.length) index = 0;
+    const current = genreData[index];
     console.log("🎓 出題データ:", current);
 
     // ==========================================================
-    // 🔹 日本語文表示
+    // 🔹 表示処理
     // ==========================================================
-    if (current.highlight) {
+    if (current.highlight && current.jpSentence) {
       jpSentence.innerHTML = current.jpSentence.replace(
         current.highlight,
         `<mark>${current.highlight}</mark>`
@@ -88,9 +87,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       jpSentence.textContent = current.jpSentence || "";
     }
 
-    // ==========================================================
-    // 🔹 英文（穴埋め化）
-    // ==========================================================
     if (current.enSentence && current.answer) {
       const blank = current.answer.split(" ").map(() => "(　)").join(" ");
       const regex = new RegExp(current.answer, "gi");
@@ -99,33 +95,29 @@ document.addEventListener("DOMContentLoaded", async () => {
       enSentence.textContent = current.enSentence || "";
     }
 
-    // ==========================================================
-    // 🔹 ヒント
-    // ==========================================================
     hintText.textContent = current.hint || "";
 
     // ==========================================================
-    // 🔹 共通遷移処理
+    // 🔹 回答・スキップ処理
     // ==========================================================
-    function goToAnswer(userInput) {
-      localStorage.setItem("userAnswer", userInput);
-      localStorage.setItem("currentIndex", currentIndex.toString());
-      location.href = "study-answer.html";
+    function goToAnswer(inputValue) {
+      sessionStorage.setItem("quizIndex", (index + 1).toString());
+      const url = `study-answer.html?id=${encodeURIComponent(current._key)}&a=${encodeURIComponent(inputValue)}`;
+      location.href = url;
     }
 
     answerBtn.addEventListener("click", () => goToAnswer(userAnswer.value.trim()));
     skipBtn.addEventListener("click", () => goToAnswer(""));
 
-    // 🔹 Enterキー送信対応
     userAnswer.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
         goToAnswer(userAnswer.value.trim());
       }
     });
-  } catch (error) {
-    console.error("❌ データ取得エラー:", error);
-    alert("データの取得中にエラーが発生しました。");
+  } catch (err) {
+    console.error("❌ データ取得エラー:", err);
+    alert("データの読み込みに失敗しました。");
     location.href = "study-select.html";
   }
 });
